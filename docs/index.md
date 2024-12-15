@@ -192,7 +192,7 @@ So the data packet in this case will be 2 bytes:
 This sets `PTP_PC_WhiteBalance` to `0x0001`, or 'Manual'.
 After this, we expect a response packet from the responder.
 
-## What's next?
+# What's next?
 The packet structure described in this document is for PTP/USB only. PTP/IP has a totally different packet structure and way of sending packets.
 Thankfully, I have started to document it [here](ip).
 
@@ -203,4 +203,5 @@ There may also be an interrupt endpoint. This is a read only endpoint that the c
 The class for PTP devices should be `0x06` for Still Imaging devices, as described by the [USB forum](https://www.usb.org/defined-class-codes)
 
 # vcam
-[vcam] is an implementation of PTP, MTP, and other proprietary PTP extensions. This may be useful if you want to write a PTP client.
+[vcam](https://github.com/petabyt/vcam) is an responder implementation of PTP, MTP, and other proprietary PTP extensions that can be used with unmodified PTP clients.
+This may be useful if you want test yours.
