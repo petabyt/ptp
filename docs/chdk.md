@@ -1,11 +1,124 @@
 # CHDK PTP Extension
-- Implementation: https://github.com/petabyt/chdk/blob/23c1f3f04fa1c7d483083d403818972a739c6dfd/core/ptp.c#L443
-- Opcode: `0x9999`
+[CHDK](https://chdk.fandom.com/wiki/CHDK) implements a custom opcode `0x9999` with a generic low-level interface to communicate with the camera's OS.
+The primary client implementation for this opcode is in the [chdkptp](https://app.assembla.com/wiki/show/chdkptp) project.
 
-All functionality is switched from a code in the first parameter: https://github.com/petabyt/chdk/blob/master/trunk/core/ptp.c#L33C1-L33C1
-
+- Responder-side implementation: https://github.com/petabyt/chdk/blob/23c1f3f04fa1c7d483083d403818972a739c6dfd/core/ptp.c#L443 
+- All functionality is switched from a code in the first parameter: https://github.com/petabyt/chdk/blob/master/trunk/core/ptp.c#L33C1-L33C1 
 - [ptp.c](https://github.com/petabyt/chdk/blob/master/trunk/core/ptp.c)
 - [ptp.h](https://github.com/petabyt/chdk/blob/master/trunk/core/ptp.h)
+
+## `PTP_CHDK_Version` - `0`
+- **Return Parameters**:
+  - **param1**: Major version number.
+  - **param2**: Minor version number.
+
+## `PTP_CHDK_GetMemory` - `1`
+- **Input Parameters**:
+  - **param2**: Base address (direct access may fail for MMIO or special memory locations; use buffered mode in these cases).
+  - **param3**: Size in bytes of the memory block to retrieve.
+  - **param4**: Options for the operation:
+    - `0`: Read memory directly.
+    - `1`: Read memory using a buffered operation.
+    - Other values are reserved for future use.
+- **Return Data**:
+  - Memory block corresponding to the specified address and size.
+
+## `PTP_CHDK_SetMemory` - `2`
+- **Input Parameters**:
+  - **param2**: Address of the memory block to set.
+  - **param3**: Size in bytes of the new memory block.
+  - **Data**: New memory block content.
+
+## `PTP_CHDK_CallFunction` - `3`
+- Calls a function from a 32-bit pointer in memory, with 32-bit arguments.
+- **Input Data**:
+  - Array of function pointer and up to 10 32-bit integer arguments.
+- **Return Parameters**:
+  - **param1**: Return value of the function.
+
+## `PTP_CHDK_TempData` - `4`
+- Can be used to store or download temporary data in a temporary location the camera's RAM 
+- **Input Data**:
+  - Arbitrary data to be stored for later use.
+- **Input Parameters**:
+  - **param2**: Flags for storing data.
+
+## `PTP_CHDK_UploadFile` - `5`
+- **Input Data**:
+  - 4-byte length of the filename, followed by the filename and file contents. Writes the rest of payload to disk.
+
+## `PTP_CHDK_DownloadFile` - `6`
+- **Input**:
+  - Preceded by `PTP_CHDK_TempData` with the filename.
+  - Call `PTP_CHDK_TempData` with a string for the filename.
+- **Return Data**:
+  - File contents.
+
+## `PTP_CHDK_ExecuteScript` - `7`
+- **Input Data**:
+  - Script content to be executed.
+- **Input Parameters**:
+  - **param2**: Script language.
+    - For protocol 2.6 and later, the lower byte specifies the language, while the rest is used for `PTP_CHDK_SCRIPT_FL*` flags.
+- **Return Parameters**:
+  - **param1**: Script ID (similar to a process ID).
+  - **param2**: Status, as defined in `ptp_chdk_script_error_type`.
+
+## `PTP_CHDK_ScriptStatus` - `8`
+- **Return Parameters**:
+  - **param1**: Bitmask of script execution status:
+    - `PTP_CHDK_SCRIPT_STATUS_RUN`: Set if a script is running.
+    - `PTP_CHDK_SCRIPT_STATUS_MSG`: Set if messages are waiting to be read from the script.
+  - Other bits and parameters are reserved for future use.
+
+## `PTP_CHDK_ScriptSupport` - `9`
+- **Return Parameters**:
+  - **param1**: Bitmask of supported scripting interfaces:
+    - `CHDK_PTP_SUPPORT_LUA`: Set if Lua is supported.
+
+## `PTP_CHDK_ReadScriptMsg` - `10`
+- **Return Parameters**:
+  - **param1**: `chdk_ptp_s_msg_type`.
+  - **param2**: Message subtype:
+    - For script returns and user messages, this is `ptp_chdk_script_data_type`.
+    - For errors, this is `ptp_chdk_script_error_type`.
+  - **param3**: Script ID of the script that generated the message.
+  - **param4**: Length of the message data.
+- **Return Data**:
+  - Message content. If the message has no data, a minimum of 1 byte of zeros is returned.
+
+## `PTP_CHDK_WriteScriptMsg` - `11`
+- **Input Parameters**:
+  - **param2**: Target script ID (`0` for "don't care"; messages for non-running scripts are discarded).
+- **Input Data**:
+  - String message for the script.
+- **Output Parameters**:
+  - **param1**: `ptp_chdk_script_msg_status`.
+
+## `PTP_CHDK_GetDisplayData` - `12`
+- **Input Parameters**:
+  - **param2**: Bitmask of requested data.
+- **Output Parameters**:
+  - **param1**: Total size of data.
+- **Return Data**:
+  - Protocol information, frame buffer descriptions, and selected display data.
+
+## `PTP_CHDK_RemoteCaptureIsReady` - `13`
+- **Return Parameters**:
+  - **param1**: Status:
+    - `0`: Not ready.
+    - `0x10000000`: Remote capture not initialized.
+    - Otherwise, bitmask of `PTP_CHDK_CAPTURE_*` data types.
+  - **param2**: Image number.
+
+## `PTP_CHDK_RemoteCaptureGetData` - `14`
+- **Input Parameters**:
+  - **param2**: Bit indicating data type to retrieve.
+- **Return Parameters**:
+  - **param1**: Length of the data.
+  - **param2**: Indicates if more chunks are available (`0` = no more chunks).
+  - **param3**: Seek position (`-1` = no seek required).
+
 
 ```
 enum ptp_chdk_command {
@@ -76,5 +189,3 @@ enum ptp_chdk_command {
                                  // return param3 seek required to pos (-1 = no seek)
 };
 ```
-
-TODO: Document CHDK extensions
