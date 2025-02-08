@@ -8,7 +8,7 @@ is freely available and well-written, and is great documentation for anybody who
 Unlike a mass storage device, PTP doesn't expose a filesystem.
 Instead, it exposes a generic API for listing, downloading, and uploading *objects*. An 'object' can be anything, but in most cases it represents a file or folder on the device's storage medium. 
 
-There's a few reasons why PTP was designed this way the time:
+There's a few reasons why PTP was designed this way at the time:
 
 - Image transfer solutions at the time were proprietary and difficult for Linux developers to write drivers for
 - Abstracting away the filesystem allowed the camera to store images in any way it liked (even without a filesystem)
