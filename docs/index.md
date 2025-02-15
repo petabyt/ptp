@@ -1,23 +1,27 @@
 # What is PTP?
-Picture Transfer Protocol was standardized in [2005](https://www.iso.org/standard/37445.html#:~:text=ISO%2015740%3A2005%20provides%20a,image%20storage%20and%20display%20devices.) and designed to be a generic
-vendor-extensible image and file transfer protocol for digital cameras and printers.
+Picture Transfer Protocol was [drafted](https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/f2012/jmv87/site/files/pima15740-2000.pdf) in 2000 to create a standardized vendor-extensible image
+and file transfer protocol for digital cameras and printers.
 
-MTP is a superset of PTP which adds additional features and improvements over the 2005 standard. The [MTP spec](https://www.usb.org/document-library/media-transfer-protocol-v11-spec-and-mtp-v11-adopters-agreement)
-is freely available and well-written, and is great documentation for anybody who wants to write a client.
+This effort was led by [PIMA](https://www.imaging.org/) and many other camera manufacturers who, at the time, needed a universal protocol for transfering images from a camera
+to a computer over USB. At the time every company needed to invest in not only creating their own proprietary protocol, but creating drivers and software for their users.
 
-Unlike a mass storage device, PTP doesn't expose a filesystem.
-Instead, it exposes a generic API for listing, downloading, and uploading *objects*. An 'object' can be anything, but in most cases it represents a file or folder on the device's storage medium. 
+Like many file transfer protocols at the time, PTP doesn't expose a filesystem.
+Instead, it exposes a generic API for listing, downloading, and uploading *objects*. An 'object' can be anything, but in most cases it represents a file or folder on the device's storage medium.  
 
-There's a few reasons why PTP was designed this way at the time:
+There's a few reasons why PTP was designed this way:
 
-- Image transfer solutions at the time were proprietary and difficult for Linux developers to write drivers for
 - Abstracting away the filesystem allowed the camera to store images in any way it liked (even without a filesystem)
 - Removed the risk of filesystem corruption
 - Allows the camera to safely modify objects while the client is downloading/uploading data
-- Manufacturers don't just want a image transfer protocol, they want to build upon it and add custom functionality (such as liveview, remote capture, etc)
 
-Thus, in 2002 PTP was [drafted](https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/f2012/jmv87/site/files/PTP%20Protocol.pdf)
-to create a single standardized protocol that vendors could build upon while still offering an easy to implement file transfer solution.
+PTP is also simple and vendor-extensible. This allows OS developers to create clients that can communicate with any camera,
+while camera manufacturers can add additional functionality on top of PTP without breaking compatibility with all clients.
+
+In [2005](https://www.iso.org/standard/37445.html#:~:text=ISO%2015740%3A2005%20provides%20a,image%20storage%20and%20display%20devices.) PTP was standardized. It was updated in [2008](https://www.iso.org/standard/45344.html),
+and again in [2013](https://www.iso.org/standard/63602.html) with new features to improve performance.
+
+In 2011, Microsoft released MTP as a superset of PTP with many more features and data types. The [MTP spec](https://www.usb.org/document-library/media-transfer-protocol-v11-spec-and-mtp-v11-adopters-agreement)
+is freely available and well-written, and is great documentation for anybody who wants to write a client.
 
 # How does it work?
 PTP starts with the *initiator*, or the client. This is the device that issues commands to the *responder*, which can be a camera, printer, or phone.
