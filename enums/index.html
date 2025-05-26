@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>PTP Codes - PTP</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">PTP</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">What is PTP?</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../chdk/" class="nav-link">CHDK PTP Extension</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">PTP Codes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../ip/" class="nav-link">PTP/IP</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../chdk/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../ip/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#ptp-codes" class="nav-link">PTP Codes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="ptp-codes">PTP Codes</h1>
+<p>Here is a list of all PTP codes encoded in C, for your conveinence to re-encode in whatever language you wish.</p>
+<pre><code class="language-c">enum PtpType {
+    PTP_ENUM = 0, // regular enums
+    PTP_OC = 1, // operation codes
+    PTP_OF = 2, // object formats
+    PTP_DPC = 3, // property codes
+    PTP_EC = 4, // event codes
+    PTP_RC = 5, // return code
+    PTP_ST = 6, // storage type
+    PTP_FT = 7, // filesystem type
+    PTP_AC = 8, // access code
+    PTP_AT = 9, // association type
+};
+
+struct PtpEnum {
+    int type;
+    int vendor;
+    char *name;
+    int value;
+};
+
+struct PtpEnum ptp_enums[] = {
+{PTP_ENUM, 0, &quot;PTP_PACKET_TYPE_COMMAND&quot;, 0x1},
+{PTP_ENUM, 0, &quot;PTP_PACKET_TYPE_DATA&quot;, 0x2},
+{PTP_ENUM, 0, &quot;PTP_PACKET_TYPE_RESPONSE&quot;, 0x3},
+{PTP_ENUM, 0, &quot;PTP_PACKET_TYPE_EVENT&quot;, 0x4},
+{PTP_OC, 0, &quot;PTP_OC_GetDeviceInfo&quot;, 0x1001},
+{PTP_OC, 0, &quot;PTP_OC_OpenSession&quot;, 0x1002},
+{PTP_OC, 0, &quot;PTP_OC_CloseSession&quot;, 0x1003},
+{PTP_OC, 0, &quot;PTP_OC_GetStorageIDs&quot;, 0x1004},
+{PTP_OC, 0, &quot;PTP_OC_GetStorageInfo&quot;, 0x1005},
+{PTP_OC, 0, &quot;PTP_OC_GetNumObjects&quot;, 0x1006},
+{PTP_OC, 0, &quot;PTP_OC_GetObjectHandles&quot;, 0x1007},
+{PTP_OC, 0, &quot;PTP_OC_GetObjectInfo&quot;, 0x1008},
+{PTP_OC, 0, &quot;PTP_OC_GetObject&quot;, 0x1009},
+{PTP_OC, 0, &quot;PTP_OC_GetThumb&quot;, 0x100A},
+{PTP_OC, 0, &quot;PTP_OC_DeleteObject&quot;, 0x100B},
+{PTP_OC, 0, &quot;PTP_OC_SendObjectInfo&quot;, 0x100C},
+{PTP_OC, 0, &quot;PTP_OC_SendObject&quot;, 0x100D},
+{PTP_OC, 0, &quot;PTP_OC_InitiateCapture&quot;, 0x100E},
+{PTP_OC, 0, &quot;PTP_OC_FormatStore&quot;, 0x100F},
+{PTP_OC, 0, &quot;PTP_OC_ResetDevice&quot;, 0x1010},
+{PTP_OC, 0, &quot;PTP_OC_SelfTest&quot;, 0x1011},
+{PTP_OC, 0, &quot;PTP_OC_SetObjectProtection&quot;, 0x1012},
+{PTP_OC, 0, &quot;PTP_OC_PowerDown&quot;, 0x1013},
+{PTP_OC, 0, &quot;PTP_OC_GetDevicePropDesc&quot;, 0x1014},
+{PTP_OC, 0, &quot;PTP_OC_GetDevicePropValue&quot;, 0x1015},
+{PTP_OC, 0, &quot;PTP_OC_SetDevicePropValue&quot;, 0x1016},
+{PTP_OC, 0, &quot;PTP_OC_ResetDevicePropValue&quot;, 0x1017},
+{PTP_OC, 0, &quot;PTP_OC_TerminateOpenCapture&quot;, 0x1018},
+{PTP_OC, 0, &quot;PTP_OC_MoveObject&quot;, 0x1019},
+{PTP_OC, 0, &quot;PTP_OC_CopyObject&quot;, 0x101A},
+{PTP_OC, 0, &quot;PTP_OC_GetPartialObject&quot;, 0x101B},
+{PTP_OC, 0, &quot;PTP_OC_InitiateOpenCapture&quot;, 0x101C},
+{PTP_OC, 0, &quot;PTP_OC_MTP_GetObjectPropsSupported&quot;, 0x9801},
+{PTP_OC, 0, &quot;PTP_OC_MTP_GetObjectPropDesc&quot;, 0x9802},
+{PTP_OC, 0, &quot;PTP_OC_MTP_GetObjectPropValue&quot;, 0x9803},
+{PTP_OC, 0, &quot;PTP_OC_MTP_SetObjectPropValue&quot;, 0x9804},
+{PTP_OC, 0, &quot;PTP_OC_MTP_GetObjPropList&quot;, 0x9805},
+{PTP_OC, 0, &quot;PTP_OC_MTP_SetObjPropList&quot;, 0x9806},
+{PTP_OC, 0, &quot;PTP_OC_MTP_SendObjectPropList&quot;, 0x9808},
+{PTP_OC, 0, &quot;PTP_OC_MTP_GetObjectReferences&quot;, 0x9810},
+{PTP_OC, 0, &quot;PTP_OC_MTP_SetObjectReferences&quot;, 0x9811},
+{PTP_OC, 0, &quot;PTP_OC_MTP_UpdateDeviceFirmware&quot;, 0x9812},
+{PTP_OC, 0, &quot;PTP_OC_MTP_Skip&quot;, 0x9820},
+{PTP_OC, 3, &quot;PTP_OC_NIKON_Capture&quot;, 0x90C0},
+{PTP_OC, 3, &quot;PTP_OC_NIKON_AfCaptureSDRAM&quot;, 0x90CB},
+{PTP_OC, 3, &quot;PTP_OC_NIKON_StartLiveView&quot;, 0x9201},
+{PTP_OC, 3, &quot;PTP_OC_NIKON_EndLiveView&quot;, 0x9202},
+{PTP_OC, 3, &quot;PTP_OC_NIKON_GetEvent&quot;, 0x90C7},
+{PTP_OC, 2, &quot;PTP_OC_CANON_ViewFinderOn&quot;, 0x900B},
+{PTP_OC, 2, &quot;PTP_OC_CANON_ViewFinderOff&quot;, 0x900C},
+{PTP_OC, 2, &quot;PTP_OC_CANON_InitCaptureInRAM&quot;, 0x901A},
+{PTP_OC, 2, &quot;PTP_OC_CANON_GetViewFinderImage&quot;, 0x901D},
+{PTP_OC, 2, &quot;PTP_OC_CANON_LockUI&quot;, 0x9004},
+{PTP_OC, 2, &quot;PTP_OC_CANON_UnlockUI&quot;, 0x9005},
+{PTP_OC, 2, &quot;PTP_OC_CANON_DoNothing&quot;, 0x902F},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetStorageIDs&quot;, 0x9101},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetStorageInfo&quot;, 0x9102},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetObjectInfoEx&quot;, 0x9109},
+{PTP_OC, 1, &quot;PTP_OC_EOS_SetDevicePropValueEx&quot;, 0x9110},
+{PTP_OC, 1, &quot;PTP_OC_EOS_SetRemoteMode&quot;, 0x9114},
+{PTP_OC, 1, &quot;PTP_OC_EOS_SetEventMode&quot;, 0x9115},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetEvent&quot;, 0x9116},
+{PTP_OC, 1, &quot;PTP_OC_EOS_PCHDDCapacity&quot;, 0x911A},
+{PTP_OC, 1, &quot;PTP_OC_EOS_SetUILock&quot;, 0x911B},
+{PTP_OC, 1, &quot;PTP_OC_EOS_ResetUILock&quot;, 0x911C},
+{PTP_OC, 1, &quot;PTP_OC_EOS_KeepDeviceOn&quot;, 0x911D},
+{PTP_OC, 1, &quot;PTP_OC_EOS_UpdateFirmware&quot;, 0x911F},
+{PTP_OC, 1, &quot;PTP_OC_EOS_BulbStart&quot;, 0x9125},
+{PTP_OC, 1, &quot;PTP_OC_EOS_BulbEnd&quot;, 0x9126},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetDevicePropValue&quot;, 0x9127},
+{PTP_OC, 1, &quot;PTP_OC_EOS_RemoteReleaseOn&quot;, 0x9128},
+{PTP_OC, 1, &quot;PTP_OC_EOS_RemoteReleaseOff&quot;, 0x9129},
+{PTP_OC, 1, &quot;PTP_OC_EOS_DriveLens&quot;, 0x9155},
+{PTP_OC, 1, &quot;PTP_OC_EOS_InitiateViewfinder&quot;, 0x9151},
+{PTP_OC, 1, &quot;PTP_OC_EOS_TerminateViewfinder&quot;, 0x9152},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetViewFinderData&quot;, 0x9153},
+{PTP_OC, 1, &quot;PTP_OC_EOS_DoAutoFocus&quot;, 0x9154},
+{PTP_OC, 1, &quot;PTP_OC_EOS_AfCancel&quot;, 0x9160},
+{PTP_OC, 1, &quot;PTP_OC_EOS_SetDefaultSetting&quot;, 0x91BE},
+{PTP_OC, 1, &quot;PTP_OC_EOS_EnableEventProc&quot;, 0x9050},
+{PTP_OC, 1, &quot;PTP_OC_EOS_ExecuteEventProc&quot;, 0x9052},
+{PTP_OC, 1, &quot;PTP_OC_EOS_GetEventProcReturnData&quot;, 0x9053},
+{PTP_OC, 1, &quot;PTP_OC_EOS_IsEventProcRunning&quot;, 0x9057},
+{PTP_ENUM, 0, &quot;EOS_DESTINATION_CAM&quot;, 0x2},
+{PTP_ENUM, 0, &quot;EOS_DESTINATION_PC&quot;, 0x4},
+{PTP_ENUM, 0, &quot;EOS_DESTINATION_BOTH&quot;, 0x6},
+{PTP_RC, 0, &quot;PTP_RC_Undefined&quot;, 0x2000},
+{PTP_RC, 0, &quot;PTP_RC_OK&quot;, 0x2001},
+{PTP_RC, 0, &quot;PTP_RC_GeneralError&quot;, 0x2002},
+{PTP_RC, 0, &quot;PTP_RC_SessionNotOpen&quot;, 0x2003},
+{PTP_RC, 0, &quot;PTP_RC_InvalidTransactionID&quot;, 0x2004},
+{PTP_RC, 0, &quot;PTP_RC_OperationNotSupported&quot;, 0x2005},
+{PTP_RC, 0, &quot;PTP_RC_ParameterNotSupported&quot;, 0x2006},
+{PTP_RC, 0, &quot;PTP_RC_IncompleteTransfer&quot;, 0x2007},
+{PTP_RC, 0, &quot;PTP_RC_InvalidStorageId&quot;, 0x2008},
+{PTP_RC, 0, &quot;PTP_RC_InvalidObjectHandle&quot;, 0x2009},
+{PTP_RC, 0, &quot;PTP_RC_DevicePropNotSupported&quot;, 0x200A},
+{PTP_RC, 0, &quot;PTP_RC_InvalidObjectFormatCode&quot;, 0x200B},
+{PTP_RC, 0, &quot;PTP_RC_StoreFull&quot;, 0x200C},
+{PTP_RC, 0, &quot;PTP_RC_ObjectWriteProtected&quot;, 0x200D},
+{PTP_RC, 0, &quot;PTP_RC_StoreReadOnly&quot;, 0x200E},
+{PTP_RC, 0, &quot;PTP_RC_AccessDenied&quot;, 0x200F},
+{PTP_RC, 0, &quot;PTP_RC_NoThumbnailPresent&quot;, 0x2010},
+{PTP_RC, 0, &quot;PTP_RC_SelfTestFailed&quot;, 0x2011},
+{PTP_RC, 0, &quot;PTP_RC_PartialDeletion&quot;, 0x2012},
+{PTP_RC, 0, &quot;PTP_RC_StoreNotAvailable&quot;, 0x2013},
+{PTP_RC, 0, &quot;PTP_RC_SpecByFormatUnsupported&quot;, 0x2014},
+{PTP_RC, 0, &quot;PTP_RC_NoValidObjectInfo&quot;, 0x2015},
+{PTP_RC, 0, &quot;PTP_RC_InvalidCodeFormat&quot;, 0x2016},
+{PTP_RC, 0, &quot;PTP_RC_UnknownVendorCode&quot;, 0x2017},
+{PTP_RC, 0, &quot;PTP_RC_CaptureAlreadyTerminated&quot;, 0x2018},
+{PTP_RC, 0, &quot;PTP_RC_DeviceBusy&quot;, 0x2019},
+{PTP_RC, 0, &quot;PTP_RC_InvalidParentObject&quot;, 0x201A},
+{PTP_RC, 0, &quot;PTP_RC_InvalidDevicePropFormat&quot;, 0x201B},
+{PTP_RC, 0, &quot;PTP_RC_InvalidDevicePropValue&quot;, 0x201C},
+{PTP_RC, 0, &quot;PTP_RC_InvalidParameter&quot;, 0x201D},
+{PTP_RC, 0, &quot;PTP_RC_SessionAlreadyOpened&quot;, 0x201E},
+{PTP_RC, 0, &quot;PTP_RC_TransactionCanceled&quot;, 0x201F},
+{PTP_RC, 0, &quot;PTP_RC_SpecOfDestinationUnsupported&quot;, 0x2020},
+{PTP_RC, 2, &quot;PTP_RC_CANON_Unknown&quot;, 0xA001},
+{PTP_RC, 2, &quot;PTP_RC_CANON_NotReady&quot;, 0xA102},
+{PTP_RC, 2, &quot;PTP_RC_CANON_BatteryLow&quot;, 0xA101},
+{PTP_RC, 0, &quot;PTP_RC_UndefinedMTP&quot;, 0xA800},
+{PTP_RC, 0, &quot;PTP_RC_InvalidObjPropCode&quot;, 0xA801},
+{PTP_RC, 0, &quot;PTP_RC_InvalidObjPropCodeFormat&quot;, 0xA802},
+{PTP_RC, 0, &quot;PTP_RC_InvalidObjPropCodeValue&quot;, 0xA803},
+{PTP_RC, 0, &quot;PTP_RC_InvalidObjReference&quot;, 0xA804},
+{PTP_RC, 0, &quot;PTP_RC_InvalidDataset&quot;, 0xA806},
+{PTP_RC, 0, &quot;PTP_RC_GroupSpecUnsupported&quot;, 0xA807},
+{PTP_RC, 0, &quot;PTP_RC_DepthSpecUnsupported&quot;, 0xA808},
+{PTP_RC, 0, &quot;PTP_RC_ObjectTooLarge&quot;, 0xA809},
+{PTP_RC, 0, &quot;PTP_RC_ObjectPropUnsupported&quot;, 0xA80A},
+{PTP_EC, 0, &quot;PTP_EC_Undefined&quot;, 0x4000},
+{PTP_EC, 0, &quot;PTP_EC_CancelTransaction&quot;, 0x4001},
+{PTP_EC, 0, &quot;PTP_EC_ObjectAdded&quot;, 0x4002},
+{PTP_EC, 0, &quot;PTP_EC_ObjectRemoved&quot;, 0x4003},
+{PTP_EC, 0, &quot;PTP_EC_StoreAdded&quot;, 0x4004},
+{PTP_EC, 0, &quot;PTP_EC_StoreRemoved&quot;, 0x4005},
+{PTP_EC, 0, &quot;PTP_EC_DevicePropChanged&quot;, 0x4006},
+{PTP_EC, 0, &quot;PTP_EC_ObjectInfoChanged&quot;, 0x4007},
+{PTP_EC, 0, &quot;PTP_EC_DeviceInfoChanged&quot;, 0x4008},
+{PTP_EC, 0, &quot;PTP_EC_RequestObjectTransfer&quot;, 0x4009},
+{PTP_EC, 0, &quot;PTP_EC_StoreFull&quot;, 0x400A},
+{PTP_EC, 0, &quot;PTP_EC_DeviceReset&quot;, 0x400B},
+{PTP_EC, 0, &quot;PTP_EC_StorageInfoChanged&quot;, 0x400C},
+{PTP_EC, 0, &quot;PTP_EC_CaptureComplete&quot;, 0x400D},
+{PTP_EC, 0, &quot;PTP_EC_UnreportedStatus&quot;, 0x400E},
+{PTP_EC, 0, &quot;PTP_EC_Canon_RequestObjectTransfer&quot;, 0xC009},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestGetEvent&quot;, 0xC101},
+{PTP_EC, 1, &quot;PTP_EC_EOS_ObjectAddedEx&quot;, 0xC181},
+{PTP_EC, 1, &quot;PTP_EC_EOS_ObjectRemoved&quot;, 0xC182},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestGetObjectInfoEx&quot;, 0xC183},
+{PTP_EC, 1, &quot;PTP_EC_EOS_StorageStatusChanged&quot;, 0xC184},
+{PTP_EC, 1, &quot;PTP_EC_EOS_StorageInfoChanged&quot;, 0xC185},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestObjectTransfer&quot;, 0xc186},
+{PTP_EC, 1, &quot;PTP_EC_EOS_ObjectInfoChangedEx&quot;, 0xC187},
+{PTP_EC, 1, &quot;PTP_EC_EOS_ObjectContentChanged&quot;, 0xC188},
+{PTP_EC, 1, &quot;PTP_EC_EOS_PropValueChanged&quot;, 0xC189},
+{PTP_EC, 1, &quot;PTP_EC_EOS_AvailListChanged&quot;, 0xC18A},
+{PTP_EC, 1, &quot;PTP_EC_EOS_CameraStatusChanged&quot;, 0xC18B},
+{PTP_EC, 1, &quot;PTP_EC_EOS_WillSoonShutdown&quot;, 0xC18D},
+{PTP_EC, 1, &quot;PTP_EC_EOS_ShutdownTimerUpdated&quot;, 0xC18E},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestCancelTransfer&quot;, 0xC18F},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestObjectTransferDT&quot;, 0xC190},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestCancelTransferDT&quot;, 0xC191},
+{PTP_EC, 1, &quot;PTP_EC_EOS_StoreAdded&quot;, 0xC192},
+{PTP_EC, 1, &quot;PTP_EC_EOS_StoreRemoved&quot;, 0xC193},
+{PTP_EC, 1, &quot;PTP_EC_EOS_BulbExposureTime&quot;, 0xC194},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RecordingTime&quot;, 0xC195},
+{PTP_EC, 1, &quot;PTP_EC_EOS_RequestObjectTransferTS&quot;, 0xC1A2},
+{PTP_EC, 1, &quot;PTP_EC_EOS_AfResult&quot;, 0xC1A3},
+{PTP_EC, 1, &quot;PTP_EC_EOS_InfoCheckComplete&quot;, 0xC1A4},
+{PTP_EC, 0, &quot;PTP_EC_Nikon_ObjectAddedInSDRAM&quot;, 0xC101},
+{PTP_EC, 0, &quot;PTP_EC_Nikon_CaptureCompleteRecInSdram&quot;, 0xC102},
+{PTP_OF, 0, &quot;PTP_OF_Undefined&quot;, 0x3000},
+{PTP_OF, 0, &quot;PTP_OF_Association&quot;, 0x3001},
+{PTP_OF, 0, &quot;PTP_OF_Script&quot;, 0x3002},
+{PTP_OF, 0, &quot;PTP_OF_Executable&quot;, 0x3003},
+{PTP_OF, 0, &quot;PTP_OF_Text&quot;, 0x3004},
+{PTP_OF, 0, &quot;PTP_OF_HTML&quot;, 0x3005},
+{PTP_OF, 0, &quot;PTP_OF_DPOF&quot;, 0x3006},
+{PTP_OF, 0, &quot;PTP_OF_AIFF&quot;, 0x3007},
+{PTP_OF, 0, &quot;PTP_OF_WAV&quot;, 0x3008},
+{PTP_OF, 0, &quot;PTP_OF_MP3&quot;, 0x3009},
+{PTP_OF, 0, &quot;PTP_OF_AVI&quot;, 0x300A},
+{PTP_OF, 0, &quot;PTP_OF_MPEG&quot;, 0x300B},
+{PTP_OF, 0, &quot;PTP_OF_ASF&quot;, 0x300C},
+{PTP_OF, 0, &quot;PTP_OF_MOV&quot;, 0x300D},
+{PTP_OF, 0, &quot;PTP_OF_JPEG&quot;, 0x3801},
+{PTP_OF, 0, &quot;PTP_OF_TIFF_EP&quot;, 0x3802},
+{PTP_OF, 0, &quot;PTP_OF_FlashPix&quot;, 0x3803},
+{PTP_OF, 0, &quot;PTP_OF_BMP&quot;, 0x3804},
+{PTP_OF, 0, &quot;PTP_OF_CIFF&quot;, 0x3805},
+{PTP_OF, 0, &quot;PTP_OF_Reserved2&quot;, 0x3806},
+{PTP_OF, 0, &quot;PTP_OF_GIF&quot;, 0x3807},
+{PTP_OF, 0, &quot;PTP_OF_JFIF&quot;, 0x3808},
+{PTP_OF, 0, &quot;PTP_OF_PCD&quot;, 0x3809},
+{PTP_OF, 0, &quot;PTP_OF_PICT&quot;, 0x380A},
+{PTP_OF, 0, &quot;PTP_OF_PNG&quot;, 0x380B},
+{PTP_OF, 0, &quot;PTP_OF_Reserved1&quot;, 0x380C},
+{PTP_OF, 0, &quot;PTP_OF_TIFF&quot;, 0x380D},
+{PTP_OF, 0, &quot;PTP_OF_TIFF_IT&quot;, 0x380E},
+{PTP_OF, 0, &quot;PTP_OF_JP2&quot;, 0x380F},
+{PTP_OF, 0, &quot;PTP_OF_JPX&quot;, 0x3810},
+{PTP_OF, 0, &quot;PTP_OF_Firmware&quot;, 0xB802},
+{PTP_OF, 0, &quot;PTP_OF_WIF&quot;, 0xB881},
+{PTP_OF, 0, &quot;PTP_OF_Audio&quot;, 0xB900},
+{PTP_OF, 0, &quot;PTP_OF_WMA&quot;, 0xb901},
+{PTP_OF, 0, &quot;PTP_OF_OGG&quot;, 0xb902},
+{PTP_OF, 0, &quot;PTP_OF_AAC&quot;, 0xb903},
+{PTP_OF, 0, &quot;PTP_OF_Audible&quot;, 0xb904},
+{PTP_OF, 0, &quot;PTP_OF_FLAC&quot;, 0xb906},
+{PTP_OF, 0, &quot;PTP_OF_SamsungPlaylist&quot;, 0xb909},
+{PTP_OF, 0, &quot;PTP_OF_Video&quot;, 0xb980},
+{PTP_OF, 0, &quot;PTP_OF_WMV&quot;, 0xb981},
+{PTP_OF, 0, &quot;PTP_OF_MP4&quot;, 0xb982},
+{PTP_OF, 0, &quot;PTP_OF_3GP&quot;, 0xb984},
+{PTP_OF, 0, &quot;PTP_OF_MP2&quot;, 0xb983},
+{PTP_ENUM, 0, &quot;PTP_OPC_StorageID&quot;, 0xDC01},
+{PTP_ENUM, 0, &quot;PTP_OPC_ObjectFormat&quot;, 0xDC02},
+{PTP_ENUM, 0, &quot;PTP_OPC_ProtectionStatus&quot;, 0xDC03},
+{PTP_ENUM, 0, &quot;PTP_OPC_ObjectSize&quot;, 0xDC04},
+{PTP_ENUM, 0, &quot;PTP_OPC_AssociationType&quot;, 0xDC05},
+{PTP_ENUM, 0, &quot;PTP_OPC_AssociationDesc&quot;, 0xDC06},
+{PTP_ENUM, 0, &quot;PTP_OPC_ObjectFileName&quot;, 0xDC07},
+{PTP_ENUM, 0, &quot;PTP_OPC_DateCreated&quot;, 0xDC08},
+{PTP_ENUM, 0, &quot;PTP_OPC_DateModified&quot;, 0xDC09},
+{PTP_ENUM, 0, &quot;PTP_OPC_Keywords&quot;, 0xDC0A},
+{PTP_ENUM, 0, &quot;PTP_OPC_ParentObject&quot;, 0xDC0B},
+{PTP_ENUM, 0, &quot;PTP_OPC_AllowedFolderContents&quot;, 0xDC0C},
+{PTP_ENUM, 0, &quot;PTP_OPC_Hidden&quot;, 0xDC0D},
+{PTP_ENUM, 0, &quot;PTP_OPC_SystemObject&quot;, 0xDC0E},
+{PTP_ENUM, 0, &quot;PTP_OPC_PersistantUniqueObjectIdentifier&quot;, 0xDC41},
+{PTP_ENUM, 0, &quot;PTP_OPC_SyncID&quot;, 0xDC42},
+{PTP_ENUM, 0, &quot;PTP_OPC_PropertyBag&quot;, 0xDC43},
+{PTP_ENUM, 0, &quot;PTP_OPC_Name&quot;, 0xDC44},
+{PTP_ENUM, 0, &quot;PTP_OPC_CreatedBy&quot;, 0xDC45},
+{PTP_ENUM, 0, &quot;PTP_OPC_Artist&quot;, 0xDC46},
+{PTP_ENUM, 0, &quot;PTP_OPC_DateAuthored&quot;, 0xDC47},
+{PTP_ENUM, 0, &quot;PTP_OPC_Description&quot;, 0xDC48},
+{PTP_ENUM, 0, &quot;PTP_OPC_URLReference&quot;, 0xDC49},
+{PTP_ENUM, 0, &quot;PTP_OPC_LanguageLocale&quot;, 0xDC4A},
+{PTP_ENUM, 0, &quot;PTP_OPC_CopyrightInformation&quot;, 0xDC4B},
+{PTP_ENUM, 0, &quot;PTP_OPC_Source&quot;, 0xDC4C},
+{PTP_ENUM, 0, &quot;PTP_OPC_OriginLocation&quot;, 0xDC4D},
+{PTP_ENUM, 0, &quot;PTP_OPC_DateAdded&quot;, 0xDC4E},
+{PTP_ENUM, 0, &quot;PTP_OPC_NonConsumable&quot;, 0xDC4F},
+{PTP_ENUM, 0, &quot;PTP_OPC_CorruptOrUnplayable&quot;, 0xDC50},
+{PTP_ENUM, 0, &quot;PTP_OPC_ProducerSerialNumber&quot;, 0xDC51},
+{PTP_ENUM, 0, &quot;PTP_OPC_RepresentativeSampleFormat&quot;, 0xDC81},
+{PTP_ENUM, 0, &quot;PTP_OPC_RepresentativeSampleSize&quot;, 0xDC82},
+{PTP_ENUM, 0, &quot;PTP_OPC_RepresentativeSampleHeight&quot;, 0xDC83},
+{PTP_ENUM, 0, &quot;PTP_OPC_RepresentativeSampleWidth&quot;, 0xDC84},
+{PTP_ENUM, 0, &quot;PTP_OPC_RepresentativeSampleDuration&quot;, 0xDC85},
+{PTP_ENUM, 0, &quot;PTP_OPC_RepresentativeSampleData&quot;, 0xDC86},
+{PTP_ENUM, 0, &quot;PTP_OPC_Width&quot;, 0xDC87},
+{PTP_ENUM, 0, &quot;PTP_OPC_Height&quot;, 0xDC88},
+{PTP_ENUM, 0, &quot;PTP_OPC_Duration&quot;, 0xDC89},
+{PTP_ENUM, 0, &quot;PTP_OPC_Rating&quot;, 0xDC8A},
+{PTP_ENUM, 0, &quot;PTP_OPC_Track&quot;, 0xDC8B},
+{PTP_ENUM, 0, &quot;PTP_OPC_Genre&quot;, 0xDC8C},
+{PTP_ENUM, 0, &quot;PTP_OPC_Credits&quot;, 0xDC8D},
+{PTP_ENUM, 0, &quot;PTP_OPC_Lyrics&quot;, 0xDC8E},
+{PTP_ENUM, 0, &quot;PTP_OPC_SubscriptionContentID&quot;, 0xDC8F},
+{PTP_ENUM, 0, &quot;PTP_OPC_ProducedBy&quot;, 0xDC90},
+{PTP_ENUM, 0, &quot;PTP_OPC_UseCount&quot;, 0xDC91},
+{PTP_ENUM, 0, &quot;PTP_OPC_SkipCount&quot;, 0xDC92},
+{PTP_ENUM, 0, &quot;PTP_OPC_LastAccessed&quot;, 0xDC93},
+{PTP_ENUM, 0, &quot;PTP_OPC_ParentalRating&quot;, 0xDC94},
+{PTP_ENUM, 0, &quot;PTP_OPC_MetaGenre&quot;, 0xDC95},
+{PTP_ENUM, 0, &quot;PTP_OPC_Composer&quot;, 0xDC96},
+{PTP_ENUM, 0, &quot;PTP_OPC_EffectiveRating&quot;, 0xDC97},
+{PTP_ENUM, 0, &quot;PTP_OPC_Subtitle&quot;, 0xDC98},
+{PTP_ENUM, 0, &quot;PTP_OPC_OriginalReleaseDate&quot;, 0xDC99},
+{PTP_ENUM, 0, &quot;PTP_OPC_AlbumName&quot;, 0xDC9A},
+{PTP_ENUM, 0, &quot;PTP_OPC_AlbumArtist&quot;, 0xDC9B},
+{PTP_ENUM, 0, &quot;PTP_OPC_Mood&quot;, 0xDC9C},
+{PTP_ENUM, 0, &quot;PTP_OPC_DRMStatus&quot;, 0xDC9D},
+{PTP_ENUM, 0, &quot;PTP_OPC_SubDescription&quot;, 0xDC9E},
+{PTP_ENUM, 0, &quot;PTP_OPC_IsCropped&quot;, 0xDCD1},
+{PTP_ENUM, 0, &quot;PTP_OPC_IsColorCorrected&quot;, 0xDCD2},
+{PTP_ENUM, 0, &quot;PTP_OPC_ImageBitDepth&quot;, 0xDCD3},
+{PTP_ENUM, 0, &quot;PTP_OPC_Fnumber&quot;, 0xDCD4},
+{PTP_ENUM, 0, &quot;PTP_OPC_ExposureTime&quot;, 0xDCD5},
+{PTP_ENUM, 0, &quot;PTP_OPC_ExposureIndex&quot;, 0xDCD6},
+{PTP_ENUM, 0, &quot;PTP_OPC_DisplayName&quot;, 0xDCE0},
+{PTP_ENUM, 0, &quot;PTP_OPC_BodyText&quot;, 0xDCE1},
+{PTP_ENUM, 0, &quot;PTP_OPC_Subject&quot;, 0xDCE2},
+{PTP_ENUM, 0, &quot;PTP_OPC_Priority&quot;, 0xDCE3},
+{PTP_ENUM, 0, &quot;PTP_OPC_GivenName&quot;, 0xDD00},
+{PTP_ENUM, 0, &quot;PTP_OPC_MiddleNames&quot;, 0xDD01},
+{PTP_ENUM, 0, &quot;PTP_OPC_FamilyName&quot;, 0xDD02},
+{PTP_ENUM, 0, &quot;PTP_OPC_Prefix&quot;, 0xDD03},
+{PTP_ENUM, 0, &quot;PTP_OPC_Suffix&quot;, 0xDD04},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneticGivenName&quot;, 0xDD05},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneticFamilyName&quot;, 0xDD06},
+{PTP_ENUM, 0, &quot;PTP_OPC_EmailPrimary&quot;, 0xDD07},
+{PTP_ENUM, 0, &quot;PTP_OPC_EmailPersonal1&quot;, 0xDD08},
+{PTP_ENUM, 0, &quot;PTP_OPC_EmailPersonal2&quot;, 0xDD09},
+{PTP_ENUM, 0, &quot;PTP_OPC_EmailBusiness1&quot;, 0xDD0A},
+{PTP_ENUM, 0, &quot;PTP_OPC_EmailBusiness2&quot;, 0xDD0B},
+{PTP_ENUM, 0, &quot;PTP_OPC_EmailOthers&quot;, 0xDD0C},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberPrimary&quot;, 0xDD0D},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberPersonal&quot;, 0xDD0E},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberPersonal2&quot;, 0xDD0F},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberBusiness&quot;, 0xDD10},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberBusiness2&quot;, 0xDD11},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberMobile&quot;, 0xDD12},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberMobile2&quot;, 0xDD13},
+{PTP_ENUM, 0, &quot;PTP_OPC_FaxNumberPrimary&quot;, 0xDD14},
+{PTP_ENUM, 0, &quot;PTP_OPC_FaxNumberPersonal&quot;, 0xDD15},
+{PTP_ENUM, 0, &quot;PTP_OPC_FaxNumberBusiness&quot;, 0xDD16},
+{PTP_ENUM, 0, &quot;PTP_OPC_PagerNumber&quot;, 0xDD17},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneNumberOthers&quot;, 0xDD18},
+{PTP_ENUM, 0, &quot;PTP_OPC_PrimaryWebAddress&quot;, 0xDD19},
+{PTP_ENUM, 0, &quot;PTP_OPC_PersonalWebAddress&quot;, 0xDD1A},
+{PTP_ENUM, 0, &quot;PTP_OPC_BusinessWebAddress&quot;, 0xDD1B},
+{PTP_ENUM, 0, &quot;PTP_OPC_InstantMessengerAddress&quot;, 0xDD1C},
+{PTP_ENUM, 0, &quot;PTP_OPC_InstantMessengerAddress2&quot;, 0xDD1D},
+{PTP_ENUM, 0, &quot;PTP_OPC_InstantMessengerAddress3&quot;, 0xDD1E},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFull&quot;, 0xDD1F},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFullLine1&quot;, 0xDD20},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFullLine2&quot;, 0xDD21},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFullCity&quot;, 0xDD22},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFullRegion&quot;, 0xDD23},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFullPostalCode&quot;, 0xDD24},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressPersonalFullCountry&quot;, 0xDD25},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessFull&quot;, 0xDD26},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessLine1&quot;, 0xDD27},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessLine2&quot;, 0xDD28},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessCity&quot;, 0xDD29},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessRegion&quot;, 0xDD2A},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessPostalCode&quot;, 0xDD2B},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressBusinessCountry&quot;, 0xDD2C},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherFull&quot;, 0xDD2D},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherLine1&quot;, 0xDD2E},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherLine2&quot;, 0xDD2F},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherCity&quot;, 0xDD30},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherRegion&quot;, 0xDD31},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherPostalCode&quot;, 0xDD32},
+{PTP_ENUM, 0, &quot;PTP_OPC_PostalAddressOtherCountry&quot;, 0xDD33},
+{PTP_ENUM, 0, &quot;PTP_OPC_OrganizationName&quot;, 0xDD34},
+{PTP_ENUM, 0, &quot;PTP_OPC_PhoneticOrganizationName&quot;, 0xDD35},
+{PTP_ENUM, 0, &quot;PTP_OPC_Role&quot;, 0xDD36},
+{PTP_ENUM, 0, &quot;PTP_OPC_Birthdate&quot;, 0xDD37},
+{PTP_ENUM, 0, &quot;PTP_OPC_MessageTo&quot;, 0xDD40},
+{PTP_ENUM, 0, &quot;PTP_OPC_MessageCC&quot;, 0xDD41},
+{PTP_ENUM, 0, &quot;PTP_OPC_MessageBCC&quot;, 0xDD42},
+{PTP_ENUM, 0, &quot;PTP_OPC_MessageRead&quot;, 0xDD43},
+{PTP_ENUM, 0, &quot;PTP_OPC_MessageReceivedTime&quot;, 0xDD44},
+{PTP_ENUM, 0, &quot;PTP_OPC_MessageSender&quot;, 0xDD45},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityBeginTime&quot;, 0xDD50},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityEndTime&quot;, 0xDD51},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityLocation&quot;, 0xDD52},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityRequiredAttendees&quot;, 0xDD54},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityOptionalAttendees&quot;, 0xDD55},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityResources&quot;, 0xDD56},
+{PTP_ENUM, 0, &quot;PTP_OPC_ActivityAccepted&quot;, 0xDD57},
+{PTP_ENUM, 0, &quot;PTP_OPC_Owner&quot;, 0xDD5D},
+{PTP_ENUM, 0, &quot;PTP_OPC_Editor&quot;, 0xDD5E},
+{PTP_ENUM, 0, &quot;PTP_OPC_Webmaster&quot;, 0xDD5F},
+{PTP_ENUM, 0, &quot;PTP_OPC_URLSource&quot;, 0xDD60},
+{PTP_ENUM, 0, &quot;PTP_OPC_URLDestination&quot;, 0xDD61},
+{PTP_ENUM, 0, &quot;PTP_OPC_TimeBookmark&quot;, 0xDD62},
+{PTP_ENUM, 0, &quot;PTP_OPC_ObjectBookmark&quot;, 0xDD63},
+{PTP_ENUM, 0, &quot;PTP_OPC_ByteBookmark&quot;, 0xDD64},
+{PTP_ENUM, 0, &quot;PTP_OPC_LastBuildDate&quot;, 0xDD70},
+{PTP_ENUM, 0, &quot;PTP_OPC_TimetoLive&quot;, 0xDD71},
+{PTP_ENUM, 0, &quot;PTP_OPC_MediaGUID&quot;, 0xDD72},
+{PTP_ENUM, 0, &quot;PTP_OPC_TotalBitRate&quot;, 0xDE91},
+{PTP_ENUM, 0, &quot;PTP_OPC_BitRateType&quot;, 0xDE92},
+{PTP_ENUM, 0, &quot;PTP_OPC_SampleRate&quot;, 0xDE93},
+{PTP_ENUM, 0, &quot;PTP_OPC_NumberOfChannels&quot;, 0xDE94},
+{PTP_ENUM, 0, &quot;PTP_OPC_AudioBitDepth&quot;, 0xDE95},
+{PTP_ENUM, 0, &quot;PTP_OPC_ScanDepth&quot;, 0xDE97},
+{PTP_ENUM, 0, &quot;PTP_OPC_AudioWAVECodec&quot;, 0xDE99},
+{PTP_ENUM, 0, &quot;PTP_OPC_AudioBitRate&quot;, 0xDE9A},
+{PTP_ENUM, 0, &quot;PTP_OPC_VideoFourCCCodec&quot;, 0xDE9B},
+{PTP_ENUM, 0, &quot;PTP_OPC_VideoBitRate&quot;, 0xDE9C},
+{PTP_ENUM, 0, &quot;PTP_OPC_FramesPerThousandSeconds&quot;, 0xDE9D},
+{PTP_ENUM, 0, &quot;PTP_OPC_KeyFrameDistance&quot;, 0xDE9E},
+{PTP_ENUM, 0, &quot;PTP_OPC_BufferSize&quot;, 0xDE9F},
+{PTP_ENUM, 0, &quot;PTP_OPC_EncodingQuality&quot;, 0xDEA0},
+{PTP_ENUM, 0, &quot;PTP_OPC_EncodingProfile&quot;, 0xDEA1},
+{PTP_ENUM, 0, &quot;PTP_OPC_BuyFlag&quot;, 0xD901},
+{PTP_OF, 2, &quot;PTP_OF_CANON_CRW&quot;, 0xb101},
+{PTP_OF, 0, &quot;PTP_OF_RAW&quot;, 0xb103},
+{PTP_OF, 2, &quot;PTP_OF_CANON_MOV&quot;, 0xb104},
+{PTP_ENUM, 0, &quot;PTP_AT_Folder&quot;, 0x1},
+{PTP_ENUM, 0, &quot;PTP_AT_Album&quot;, 0x1},
+{PTP_ENUM, 0, &quot;PTP_DPC_BatteryLevel&quot;, 0x5001},
+{PTP_ENUM, 0, &quot;PTP_DPC_FunctionalMode&quot;, 0x5002},
+{PTP_ENUM, 0, &quot;PTP_DPC_ImageSize&quot;, 0x5003},
+{PTP_ENUM, 0, &quot;PTP_DPC_CompressionSetting&quot;, 0x5004},
+{PTP_ENUM, 0, &quot;PTP_DPC_WhiteBalance&quot;, 0x5005},
+{PTP_ENUM, 0, &quot;PTP_DPC_RGBGain&quot;, 0x5006},
+{PTP_ENUM, 0, &quot;PTP_DPC_FNumber&quot;, 0x5007},
+{PTP_ENUM, 0, &quot;PTP_DPC_FocalLength&quot;, 0x5008},
+{PTP_ENUM, 0, &quot;PTP_DPC_FocalDistance&quot;, 0x5009},
+{PTP_ENUM, 0, &quot;PTP_DPC_FocusMode&quot;, 0x500A},
+{PTP_ENUM, 0, &quot;PTP_DPC_ExposureMeteringMode&quot;, 0x500B},
+{PTP_ENUM, 0, &quot;PTP_DPC_FlashMode&quot;, 0x500C},
+{PTP_ENUM, 0, &quot;PTP_DPC_ExposureTime&quot;, 0x500D},
+{PTP_ENUM, 0, &quot;PTP_DPC_ExposureProgramMode&quot;, 0x500E},
+{PTP_ENUM, 0, &quot;PTP_DPC_ExposureIndex&quot;, 0x500F},
+{PTP_ENUM, 0, &quot;PTP_DPC_ExposureBiasCompensation&quot;, 0x5010},
+{PTP_ENUM, 0, &quot;PTP_DPC_DateTime&quot;, 0x5011},
+{PTP_ENUM, 0, &quot;PTP_DPC_CaptureDelay&quot;, 0x5012},
+{PTP_ENUM, 0, &quot;PTP_DPC_StillCaptureMode&quot;, 0x5013},
+{PTP_ENUM, 0, &quot;PTP_DPC_Contrast&quot;, 0x5014},
+{PTP_ENUM, 0, &quot;PTP_DPC_Sharpness&quot;, 0x5015},
+{PTP_ENUM, 0, &quot;PTP_DPC_DigitalZoom&quot;, 0x5016},
+{PTP_ENUM, 0, &quot;PTP_DPC_EffectMode&quot;, 0x5017},
+{PTP_ENUM, 0, &quot;PTP_DPC_BurstNumber&quot;, 0x5018},
+{PTP_ENUM, 0, &quot;PTP_DPC_BurstInterval&quot;, 0x5019},
+{PTP_ENUM, 0, &quot;PTP_DPC_TimelapseNumber&quot;, 0x501A},
+{PTP_ENUM, 0, &quot;PTP_DPC_TimelapseInterval&quot;, 0x501B},
+{PTP_ENUM, 0, &quot;PTP_DPC_FocusMeteringMode&quot;, 0x501C},
+{PTP_ENUM, 0, &quot;PTP_DPC_UploadURL&quot;, 0x501D},
+{PTP_ENUM, 0, &quot;PTP_DPC_Artist&quot;, 0x501E},
+{PTP_ENUM, 0, &quot;PTP_DPC_CopyrightInfo&quot;, 0x501F},
+{PTP_ENUM, 0, &quot;PTP_DPC_SupportedStreams&quot;, 0x5020},
+{PTP_ENUM, 0, &quot;PTP_DPC_EnabledStreams&quot;, 0x5021},
+{PTP_ENUM, 0, &quot;PTP_DPC_VideoFormat&quot;, 0x5022},
+{PTP_ENUM, 0, &quot;PTP_DPC_VideoResolution&quot;, 0x5023},
+{PTP_ENUM, 0, &quot;PTP_DPC_VideoQuality&quot;, 0x5024},
+{PTP_ENUM, 0, &quot;PTP_DPC_VideoFrameRate&quot;, 0x5025},
+{PTP_ENUM, 0, &quot;PTP_DPC_VideoContrast&quot;, 0x5026},
+{PTP_ENUM, 0, &quot;PTP_DPC_VideoBrightness&quot;, 0x5027},
+{PTP_ENUM, 0, &quot;PTP_DPC_AudioFormat&quot;, 0x5028},
+{PTP_ENUM, 0, &quot;PTP_DPC_AudioBitrate&quot;, 0x5029},
+{PTP_ENUM, 0, &quot;PTP_DPC_AudioSamplingRate&quot;, 0x502A},
+{PTP_ENUM, 0, &quot;PTP_DPC_AudioBitPerSample&quot;, 0x502B},
+{PTP_ENUM, 0, &quot;PTP_DPC_AudioVolume&quot;, 0x502C},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_BeepCode&quot;, 0xD001},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ViewFinderMode&quot;, 0xD003},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ImageQuality&quot;, 0xD006},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ImageSize&quot;, 0xD008},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_FlashMode&quot;, 0xD00a},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_TvAvSetting&quot;, 0xD00c},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_MeteringMode&quot;, 0xd010},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_MacroMode&quot;, 0xd011},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_FocusingPoint&quot;, 0xd012},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_WhiteBalance&quot;, 0xd013},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_AFMode&quot;, 0xD015},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_Contrast&quot;, 0xD017},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ISOSpeed&quot;, 0xd01c},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_Aperture&quot;, 0xd01c},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ShutterSpeed&quot;, 0xd01e},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ExpComp&quot;, 0xd01f},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_Zoom&quot;, 0xd02a},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_SizeQuality&quot;, 0xd02c},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_FlashMemory&quot;, 0xd031},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_CameraModel&quot;, 0xd032},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_CameraOwner&quot;, 0xd033},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_UnixTime&quot;, 0xd032},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_ViewFinderOut&quot;, 0xD036},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_RealImageWidth&quot;, 0xD039},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_PhotoEffect&quot;, 0xD040},
+{PTP_ENUM, 0, &quot;PTP_DPC_CANON_AssistLight&quot;, 0xD041},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_Aperture&quot;, 0xD101},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ShutterSpeed&quot;, 0xD102},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ISOSpeed&quot;, 0xD103},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ExpCompensation&quot;, 0xD104},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_AutoExposureMode&quot;, 0xD105},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_DriveMode&quot;, 0xD106},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_MeteringMode&quot;, 0xD107},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_FocusMode&quot;, 0xD108},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_WhiteBalance&quot;, 0xD109},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ColorTemperature&quot;, 0xD10A},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_WhiteBalanceAdjustA&quot;, 0xD10B},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_WhiteBalanceAdjustB&quot;, 0xD10C},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_WhiteBalanceXA&quot;, 0xD10D},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_WhiteBalanceXB&quot;, 0xD10E},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ColorSpace&quot;, 0xD10F},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_PictureStyle&quot;, 0xD110},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_BatteryPower&quot;, 0xD111},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_BatterySelect&quot;, 0xD112},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_CameraTime&quot;, 0xD113},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_Owner&quot;, 0xD115},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ModelID&quot;, 0xD116},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_PTPExtensionVersion&quot;, 0xD119},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_DPOFVersion&quot;, 0xD11A},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_AvailableShots&quot;, 0xD11B},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_CaptureDestination&quot;, 0xD11C},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_CurrentFolder&quot;, 0xD11F},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ImageFormat&quot;, 0xD120},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ImageFormatCF&quot;, 0xD121},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ImageFormatSD&quot;, 0xD122},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ImageFormatExtHD&quot;, 0xD123},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_AEModeDial&quot;, 0xD138},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_ShutterCounter&quot;, 0xD1AC},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_VF_Output&quot;, 0xD1B0},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_EVFMode&quot;, 0xD1B1},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_DOFPreview&quot;, 0xD1B2},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_VFSharp&quot;, 0xD1B3},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_EVFWBMode&quot;, 0xD1B4},
+{PTP_ENUM, 0, &quot;PTP_DPC_EOS_FocusInfoEx&quot;, 0xD1D3},
+{PTP_OC, 0, &quot;PTP_OC_ML_LiveBmpRam&quot;, 0x9996},
+{PTP_OC, 0, &quot;PTP_OC_ML_Live360x240&quot;, 0x9997},
+{PTP_OC, 0, &quot;PTP_OC_MagicLantern&quot;, 0x9998},
+{PTP_OC, 0, &quot;PTP_OC_CHDK&quot;, 0x9999},
+{PTP_ST, 0, &quot;PTP_ST_Undefined&quot;, 0x0},
+{PTP_ST, 0, &quot;PTP_ST_FixedROM&quot;, 0x1},
+{PTP_ST, 0, &quot;PTP_ST_RemovableROM&quot;, 0x2},
+{PTP_ST, 0, &quot;PTP_ST_FixedRAM&quot;, 0x3},
+{PTP_ST, 0, &quot;PTP_ST_RemovableRAM&quot;, 0x4},
+{PTP_FT, 0, &quot;PTP_FT_Undefined&quot;, 0x0},
+{PTP_FT, 0, &quot;PTP_FT_GenericFlat&quot;, 0x1},
+{PTP_FT, 0, &quot;PTP_FT_GenericHei&quot;, 0x2},
+{PTP_FT, 0, &quot;PTP_FT_DCF&quot;, 0x3},
+{PTP_AC, 0, &quot;PTP_AC_ReadWrite&quot;, 0x0},
+{PTP_AC, 0, &quot;PTP_AC_Read&quot;, 0x1},
+{PTP_AC, 0, &quot;PTP_AC_ReadDelete&quot;, 0x2},
+{PTP_ENUM, 0, &quot;PTP_TC_UNDEF&quot;, 0x0},
+{PTP_ENUM, 0, &quot;PTP_TC_INT8&quot;, 0x1},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT8&quot;, 0x2},
+{PTP_ENUM, 0, &quot;PTP_TC_INT16&quot;, 0x3},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT16&quot;, 0x4},
+{PTP_ENUM, 0, &quot;PTP_TC_INT32&quot;, 0x5},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT32&quot;, 0x6},
+{PTP_ENUM, 0, &quot;PTP_TC_INT64&quot;, 0x7},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT64&quot;, 0x8},
+{PTP_ENUM, 0, &quot;PTP_TC_INT128&quot;, 0x9},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT128&quot;, 0xA},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT8ARRAY&quot;, 0x4002},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT16ARRAY&quot;, 0x4004},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT32ARRAY&quot;, 0x4006},
+{PTP_ENUM, 0, &quot;PTP_TC_UINT64ARRAY&quot;, 0x4008},
+{PTP_ENUM, 0, &quot;PTP_TC_STRING&quot;, 0xFFFF},
+{PTP_ENUM, 0, &quot;PTP_RangeForm&quot;, 0x1},
+{PTP_ENUM, 0, &quot;PTP_EnumerationForm&quot;, 0x2},
+{PTP_ENUM, 0, &quot;PTPIP_INIT_COMMAND_REQ&quot;, 0x1},
+{PTP_ENUM, 0, &quot;PTPIP_INIT_COMMAND_ACK&quot;, 0x2},
+{PTP_ENUM, 0, &quot;PTPIP_INIT_EVENT_REQ&quot;, 0x3},
+{PTP_ENUM, 0, &quot;PTPIP_INIT_EVENT_ACK&quot;, 0x4},
+{PTP_ENUM, 0, &quot;PTPIP_INIT_FAIL&quot;, 0x5},
+{PTP_ENUM, 0, &quot;PTPIP_COMMAND_REQUEST&quot;, 0x6},
+{PTP_ENUM, 0, &quot;PTPIP_COMMAND_RESPONSE&quot;, 0x7},
+{PTP_ENUM, 0, &quot;PTPIP_EVENT&quot;, 0x8},
+{PTP_ENUM, 0, &quot;PTPIP_DATA_PACKET_START&quot;, 0x9},
+{PTP_ENUM, 0, &quot;PTPIP_DATA_PACKET&quot;, 0xA},
+{PTP_ENUM, 0, &quot;PTPIP_CANCEL_TRANSACTION&quot;, 0xB},
+{PTP_ENUM, 0, &quot;PTPIP_DATA_PACKET_END&quot;, 0xC},
+{PTP_ENUM, 0, &quot;PTPIP_PING&quot;, 0xD},
+{PTP_ENUM, 0, &quot;PTPIP_PONG&quot;, 0xE},
+{PTP_ENUM, 0, &quot;USB_VENDOR_CANON&quot;, 0x4A9},
+{PTP_ENUM, 0, &quot;MTP_REQ_CANCEL&quot;, 0x64},
+{PTP_ENUM, 0, &quot;MTP_REQ_GET_EXT_EVENT_DATA&quot;, 0x65},
+{PTP_ENUM, 0, &quot;USB_REQ_RESET&quot;, 0x66},
+{PTP_ENUM, 0, &quot;USB_REQ_STATUS&quot;, 0x67},
+{PTP_ENUM, 0, &quot;USB_REQ_GET_STATUS&quot;, 0x00},
+{PTP_ENUM, 0, &quot;USB_REQ_CLEAR_FEATURE&quot;, 0x01},
+{PTP_ENUM, 0, &quot;USB_REQ_SET_FEATURE&quot;, 0x03},
+{PTP_ENUM, 0, &quot;USB_DP_HTD&quot;, 0x0},
+{PTP_ENUM, 0, &quot;USB_DP_DTH&quot;, 0x80},
+{PTP_ENUM, 0, &quot;USB_RECIP_DEVICE&quot;, 0x00},
+{PTP_ENUM, 0, &quot;USB_RECIP_INTERFACE&quot;, 0x01},
+{PTP_ENUM, 0, &quot;USB_RECIP_ENDPOINT&quot;, 0x02},
+{PTP_ENUM, 0, &quot;USB_TYPE_CLASS&quot;, 0x20},
+};
+
+int ptp_enums_length = 560;
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

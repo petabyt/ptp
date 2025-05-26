@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>PTP</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/fontawesome.min.css" rel="stylesheet">
+        <link href="css/brands.min.css" rel="stylesheet">
+        <link href="css/solid.min.css" rel="stylesheet">
+        <link href="css/v4-font-face.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">PTP</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="." class="nav-link active" aria-current="page">What is PTP?</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="chdk/" class="nav-link">CHDK PTP Extension</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="enums/" class="nav-link">PTP Codes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="ip/" class="nav-link">PTP/IP</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="chdk/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#what-is-ptp" class="nav-link">What is PTP?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#how-does-it-work" class="nav-link">How does it work?</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#ptpopensession" class="nav-link">PtpOpenSession</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#ptpgetdeviceinfo" class="nav-link">PtpGetDeviceInfo</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#sending-data-to-the-responder" class="nav-link">Sending data to the responder</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#whats-next" class="nav-link">What's next?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#notes-on-usb" class="nav-link">Notes on USB</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#vcam" class="nav-link">vcam</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="what-is-ptp">What is PTP?</h1>
+<p>Picture Transfer Protocol was <a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/f2012/jmv87/site/files/pima15740-2000.pdf">drafted</a> in 2000 to create a standardized vendor-extensible image
+and file transfer protocol for digital cameras and printers.</p>
+<p>This effort was led by <a href="https://www.imaging.org/">PIMA</a> and many other camera manufacturers who, at the time, needed a universal protocol for transfering images from a camera
+to a computer over USB. At the time every company needed to invest in not only creating their own proprietary protocol, but creating drivers and software for their users.</p>
+<p>Like many file transfer protocols at the time, PTP doesn't expose a filesystem.
+Instead, it exposes a generic API for listing, downloading, and uploading <em>objects</em>. An 'object' can be anything, but in most cases it represents a file or folder on the device's storage medium.  </p>
+<p>There's a few reasons why PTP was designed this way:</p>
+<ul>
+<li>Abstracting away the filesystem allowed the camera to store images in any way it liked (even without a filesystem)</li>
+<li>Removed the risk of filesystem corruption</li>
+<li>Allows the camera to safely modify objects while the client is downloading/uploading data</li>
+</ul>
+<p>PTP is also simple and vendor-extensible. This allows OS developers to create clients that can communicate with any camera,
+while camera manufacturers can add additional functionality on top of PTP without breaking compatibility with all clients.</p>
+<p>In <a href="https://www.iso.org/standard/37445.html#:~:text=ISO%2015740%3A2005%20provides%20a,image%20storage%20and%20display%20devices.">2005</a> PTP was standardized. It was updated in <a href="https://www.iso.org/standard/45344.html">2008</a>,
+and again in <a href="https://www.iso.org/standard/63602.html">2013</a> with new features to improve performance.</p>
+<p>In 2011, Microsoft released MTP as a superset of PTP with many more features and data types. The <a href="https://www.usb.org/document-library/media-transfer-protocol-v11-spec-and-mtp-v11-adopters-agreement">MTP spec</a>
+is freely available and well-written, and is great documentation for anybody who wants to write a client.</p>
+<h1 id="how-does-it-work">How does it work?</h1>
+<p>PTP starts with the <em>initiator</em>, or the client. This is the device that issues commands to the <em>responder</em>, which can be a camera, printer, or phone.
+The initiator can issue commands such as <code>OpenSession</code> or <code>GetDeviceInfo</code>, and the responder will reply back with a a return code, parameters, payload, etc.</p>
+<p>Another important thing to understand is that PTP transactions consist of <strong>phases</strong>. A typical transaction will consist of a <em>request phase</em>, an (optional) <em>data phase</em>, and a <em>response phase</em>.</p>
+<ul>
+<li>The <em>operation phase</em> will always consist of a single request packet sent from the <em>initiator</em>.</li>
+<li>The <em>data phase</em> can consist of a data packet sent from either the initiator or responder, depending on the operation.</li>
+<li>The <em>response phase</em> will always consist of a single response packet.</li>
+</ul>
+<p>For example, an operation like <code>GetDeviceInfo</code> will consist of data received from the responder, while an operation like <code>SetDevicePropValue</code> will have data sent from the initiator.</p>
+<p>Note that <em>the initiator and responder cannot both send data in the same transaction</em>.</p>
+<!--
+
+<pre><code>//temp
+.int 0xc+4
+.short 0x2
+.short 0x1002
+.short 1
+.int 1
+.int 0x0
+</code></pre>
+
+-->
+<h2 id="ptpopensession"><code>PtpOpenSession</code></h2>
+<p>Let's look at a very simple transaction from the viewpoint of the initiator. Here is the first packet we will send to the responder, after a USB connection is established:</p>
+<pre><code>10 00 00 00
+01 00
+02 10
+01 00 00 00
+00 00 00 00 
+</code></pre>
+<p><em>Keep in mind that PTP data structures are encoded as little endian, and fields may not be aligned.</em></p>
+<p>This might be easier to look at if we encode it as a C struct.</p>
+<pre><code class="language-c">struct PtpContainer {
+    uint32_t length;
+    uint16_t type;
+    uint16_t code;
+    uint32_t transaction_id;
+    uint32_t params[5];
+}command = {
+    .length = 16,
+    .type = 1,
+    .code = 0x1002,
+    .transaction_id = 0,
+    .params = {
+        0
+    }
+};
+</code></pre>
+<p>Generally the first request sent to the device will be <code>PtpOpenSession</code> or <code>0x1002</code>. This opens a <em>session</em> with the responder.</p>
+<p>A <strong>session</strong> is a connection between the initator and responder. Each session has it's own state, transaction IDs, object IDs, and descriptors.
+The only command allowed outside a session is <code>GetDeviceInfo</code>. PTP is designed this way to allow <strong>multiple concurrent sessions</strong> from different initiators. Sadly, it doesn't seem like any PTP device
+supports this feature.</p>
+<ul>
+<li>Since this packet is sent in the <em>request phase</em>, the <code>type</code> field for this packet is <code>PTP_PACKET_TYPE_COMMAND</code> or <code>1</code>.</li>
+<li>A rule for <code>PtpOpenSession</code>: parameter 0 must contain the <code>SessionID</code>, a unique ID identifying a session. This can be whatever we want.</li>
+<li>Note that the <code>length</code> field is <code>16</code>. The minimium size of a request packet is <code>12</code> and the first parameter adds 4 bytes.
+There can be up to 5 parameters in a command packet.</li>
+<li>A rule for for <code>PtpOpenSession</code>: <code>transaction_id</code> will always be 0. The transaction ID is maintained by the initiator and incremented by <code>1</code> after every completed transaction.</li>
+</ul>
+<p>Since <code>PtpOpenSession</code> doesn't have a data phase, the response phase is next, with a <code>PTP_PACKET_TYPE_RESPONSE</code> packet (<code>3</code>) issued from the responder:</p>
+<pre><code class="language-text">0c 00 00 00
+03 00
+01 20
+01 00 00 00
+</code></pre>
+<ul>
+<li>Here we see the <code>code</code> field is <code>0x2001</code> or <code>PTP_RC_OK</code>. Keep in mind all PTP codes start with a prefix in the higher 16 bits. For response codes (RC) it's <code>0x20</code>, for operation codes (OC) it's <code>0x10</code>, etc.</li>
+<li>Since this is packet is part of the same transaction, the transaction ID is the same.</li>
+</ul>
+<p>Now, the transaction is over, and we will increment the client's internal transaction ID counter before issuing the next transaction.</p>
+<p>Another important thing to take note of is that even though all packets are labeled with a transaction ID, <strong>a transaction must be fully completed before others are issued</strong> (in each session). You cannot issue
+another transaction while one is in progress. If the transaction ID changes before the transaction is over, then something is wrong.</p>
+<h2 id="ptpgetdeviceinfo"><code>PtpGetDeviceInfo</code></h2>
+<p>Next, let's have our client send a <code>PtpGetDeviceInfo</code> request. This operation returns a data structure describing the device we are communicating with.</p>
+<p>Here is the request packet we will send to the responder:</p>
+<pre><code class="language-text">0c 00 00 00
+01 00
+01 10
+02 00 00 00
+</code></pre>
+<p>The transaction id field is now <code>2</code>, and the code field is now set to <code>0x1001</code>.</p>
+<p>When we read data from the responder, we should get both a data packet (<code>PTP_PACKET_TYPE_DATA</code>) and a response packet (<code>PTP_PACKET_TYPE_RESPONSE</code>), in that order.</p>
+<p>The data packet is big, but is easy to decode:</p>
+<pre><code class="language-text">00000000  0b 02 00 00 02 00 01 10  01 00 00 00 64 00 06 00  |............d...|
+00000010  00 00 64 00 00 00 00 a7  00 00 00 14 10 15 10 16  |..d.............|
+00000020  10 01 10 02 10 03 10 06  10 04 10 01 91 05 10 02  |................|
+00000030  91 07 10 08 10 03 91 09  10 04 91 0a 10 1b 10 07  |................|
+00000040  91 0c 10 0d 10 0b 10 05  91 0f 10 06 91 10 91 27  |...............'|
+00000050  91 0b 91 08 91 09 91 0c  91 0e 91 0f 91 15 91 14  |................|
+00000060  91 13 91 16 91 17 91 20  91 f0 91 18 91 21 91 f1  |....... .....!..|
+00000070  91 1d 91 0a 91 1b 91 1c  91 1e 91 1a 91 53 91 54  |.............S.T|
+00000080  91 60 91 55 91 57 91 58  91 59 91 5a 91 1f 91 fe  |. .U.W.X.Y.Z....|
+00000090  91 ff 91 28 91 29 91 2d  91 2e 91 2f 91 2c 91 30  |...(.).-.../.,.0|
+000000a0  91 31 91 32 91 33 91 34  91 2b 91 35 91 36 91 37  |.1.2.3.4.+.5.6.7|
+000000b0  91 38 91 39 91 3a 91 3b  91 3c 91 da 91 db 91 dc  |.8.9.:.;.&lt;......|
+000000c0  91 dd 91 de 91 d8 91 d9  91 d7 91 d5 91 2f 90 41  |............./.A|
+000000d0  91 42 91 43 91 3f 91 33  90 68 90 69 90 6a 90 6b  |.B.C.?.3.h.i.j.k|
+000000e0  90 6c 90 6d 90 6e 90 6f  90 3d 91 80 91 81 91 82  |.l.m.n.o.=......|
+000000f0  91 83 91 84 91 85 91 40  91 01 98 02 98 03 98 04  |.......@........|
+00000100  98 05 98 c0 91 c1 91 c2  91 c3 91 c4 91 c5 91 c6  |................|
+00000110  91 c7 91 c8 91 c9 91 ca  91 cb 91 cc 91 ce 91 cf  |................|
+00000120  91 d0 91 d1 91 d2 91 e1  91 e2 91 e3 91 e4 91 e5  |................|
+00000130  91 e6 91 e7 91 e8 91 e9  91 ea 91 eb 91 ec 91 ed  |................|
+00000140  91 ee 91 ef 91 f8 91 f9  91 f2 91 f3 91 f4 91 f7  |................|
+00000150  91 22 91 23 91 24 91 f5  91 f6 91 52 90 53 90 57  |.&quot;.#.$.....R.S.W|
+00000160  90 58 90 59 90 5a 90 5f  90 07 00 00 00 09 40 04  |.X.Y.Z._......@.|
+00000170  40 05 40 03 40 02 40 07  40 01 c1 05 00 00 00 02  |@.@.@.@.@.......|
+00000180  d4 07 d4 06 d4 03 d3 01  50 01 00 00 00 01 38 0c  |........P.....8.|
+00000190  00 00 00 01 30 02 30 06  30 0a 30 08 30 01 38 01  |....0.0.0.0.0.8.|
+000001a0  b1 03 b1 02 bf 00 38 04  b1 05 b1 0b 43 00 61 00  |......8.....C.a.|
+000001b0  6e 00 6f 00 6e 00 20 00  49 00 6e 00 63 00 2e 00  |n.o.n. .I.n.c...|
+000001c0  00 00 13 43 00 61 00 6e  00 6f 00 6e 00 20 00 45  |...C.a.n.o.n. .E|
+000001d0  00 4f 00 53 00 20 00 52  00 65 00 62 00 65 00 6c  |.O.S. .R.e.b.e.l|
+000001e0  00 20 00 54 00 36 00 00  00 08 33 00 2d 00 31 00  |. .T.6....3.-.1.|
+000001f0  2e 00 32 00 2e 00 30 00  00 00 08 38 00 32 00 38  |..2...0....8.2.8|
+00000200  00 61 00 66 00 35 00 36  00 00 00                 |.a.f.5.6...|
+0000020b
+</code></pre>
+<p>Data packets have no parameters, so the payload always starts at offset <code>12</code>.</p>
+<p>The beginning of the payload starts with 3 fields:</p>
+<pre><code>uint16_t standard_version;
+uint32_t vendor_ext_id;
+uint16_t version;
+</code></pre>
+<p>What follows next are 6 <code>PTP_TC_UINT16ARRAY</code> arrays describing what codes the device supports. Parsing these is as simple as
+reading the first 4 bytes as the array length (<code>uint32_t</code>), reading the next <code>length * 2</code> bytes as <code>uint16_t</code>.</p>
+<p>Next are 4 strings. Almost all strings in PTP are encoded as <em>wide strings</em>. The first byte is read as the length of the string (in chars),
+and the rest are a series of wide chars (<code>int16_t</code>) with a null terminator. The length field includes the null terminator.</p>
+<h2 id="sending-data-to-the-responder">Sending data to the responder</h2>
+<p>For example, sending a <code>SetDevicePropValue</code> request:</p>
+<pre><code class="language-text">10 00 00 00
+01 00
+16 10
+03 00 00 00
+05 50 00 00
+</code></pre>
+<p>The first parameter is <code>0x5005</code>, or <code>PTP_PC_WhiteBalance</code></p>
+<p>As described in the MTP spec, <code>PTP_PC_WhiteBalance</code> is a <code>UINT16</code> data type.
+So the data packet in this case will be 2 bytes:</p>
+<pre><code class="language-text">0e 00 00 00
+02 00
+16 10
+03 00 00 00
+01 00
+</code></pre>
+<p>This sets <code>PTP_PC_WhiteBalance</code> to <code>0x0001</code>, or 'Manual'.
+After this, we expect a response packet from the responder.</p>
+<h1 id="whats-next">What's next?</h1>
+<p>The packet structure described in this document is for PTP/USB only. PTP/IP has a totally different packet structure and way of sending packets.
+Thankfully, I have started to document it <a href="ip">here</a>.</p>
+<h1 id="notes-on-usb">Notes on USB</h1>
+<p>A PTP/USB device should have at least two endpoints - one for sending data and the other for receiving.
+There may also be an interrupt endpoint. This is a read only endpoint that the client may poll to get event codes.</p>
+<p>The class for PTP devices should be <code>0x06</code> for Still Imaging devices, as described by the <a href="https://www.usb.org/defined-class-codes">USB forum</a></p>
+<h1 id="vcam">vcam</h1>
+<p><a href="https://github.com/petabyt/vcam">vcam</a> is an responder implementation of PTP, MTP, and other proprietary PTP extensions that can be used with unmodified PTP clients.
+This may be useful if you want test yours.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+        <script src="search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2025-05-26 01:47:10.347927+00:00
+-->
