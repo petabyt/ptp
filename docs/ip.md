@@ -18,6 +18,7 @@ struct PtpIpBulkContainer {
 };
 ```
 Rules:
+
 - Set `length` to `18 + (4 * number_of_params)`
 - Set `type` to `PTPIP_COMMAND_REQUEST` (`0x6`)
 - Set the `data_phase` field to 2 if you are sending a data payload. Set to 1 if otherwise.
@@ -34,6 +35,7 @@ struct PtpIpStartDataPacket {
 };
 ```
 Rules:
+
 - Set `length` to `20`.
 - Set `type` to `PTPIP_DATA_PACKET_START` (`0x9`)
 - Set `transaction` to the transaction ID for this operation.
@@ -49,6 +51,7 @@ struct PtpIpEndDataPacket {
 };
 ```
 Rules:
+
 - Set length to `12 + payload_length`
 - Set type to `PTPIP_DATA_PACKET_END` (`0xc`)
 - Set `data_phase_length` to the size of the payload in the following data packet.
